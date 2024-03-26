@@ -1,22 +1,27 @@
-type PropType =
+import { json, type JsonEncodable } from './json.ts';
+
+export type PropType =
   | string
   | number
   | boolean
   | undefined
   | null
-  | bigint
   | Date
   | PropArray;
 
 interface PropArray extends Array<PropType> {}
 
-type Prop = { [key: string]: PropType };
+export type Prop = { [key: string]: PropType };
 
 export abstract class Entity<T extends Prop> {
   constructor(private props: T) {}
 
   get<K extends keyof T>(key: K): T[K] {
     return this.props[key];
+  }
+
+  toJSON(): JsonEncodable<T> {
+    return json(this.props);
   }
 }
 
