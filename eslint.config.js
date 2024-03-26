@@ -1,16 +1,19 @@
-import typescriptEslintPlugin from '@typescript-eslint/eslint-plugin'
-import prettierEslintConfig from 'eslint-config-prettier'
+// @ts-check
 
-export default [
-  typescriptEslintPlugin.configs.recommendedTypeChecked,
-  prettierEslintConfig,
+import eslint from '@eslint/js'
+import tsEslint from 'typescript-eslint'
+import eslintConfigPrettier from 'eslint-config-prettier'
+
+export default tsEslint.config(
+  eslint.configs.recommended,
+  ...tsEslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
-      parser: '@typescript-eslint/parser',
-    },
-    plugins: {
-      typescriptEslintPlugin
-    },
-    files: ['src/**/*.ts']
-  }
-]
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname
+      }
+    }
+  },
+  eslintConfigPrettier
+);

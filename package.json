@@ -3,21 +3,26 @@
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
+    "@eslint/js": "^8.57.0",
     "@types/bun": "latest",
-    "@typescript-eslint/eslint-plugin": "^7.4.0",
-    "@typescript-eslint/parser": "^7.4.0",
     "drizzle-kit": "^0.20.14",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "typescript-eslint": "^7.4.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "fmt": "eslint --fix && prettier --write ./src",
+    "migration:generate": "bun run drizzle-kit generate:pg",
+    "migration:run": "bun run migrate.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.30.4",
