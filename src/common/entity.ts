@@ -1,15 +1,6 @@
 import { json, type JsonEncodable } from './json.ts';
 
-export type PropType =
-  | string
-  | number
-  | boolean
-  | undefined
-  | null
-  | Date
-  | PropArray;
-
-interface PropArray extends Array<PropType> {}
+export type PropType = string | number | boolean | undefined | null | Date;
 
 export type Prop = { [key: string]: PropType };
 

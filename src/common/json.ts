@@ -1,8 +1,6 @@
 import type { Prop, PropType } from './entity.ts';
 
-type JsonValue = string | number | boolean | null | JsonArray;
-
-interface JsonArray extends Array<JsonValue> {}
+type JsonValue = string | number | boolean | null;
 
 export type JsonEncodable<T extends Prop> = {
   [P in keyof T]-?: T[P] extends JsonValue
@@ -11,9 +9,7 @@ export type JsonEncodable<T extends Prop> = {
       ? Exclude<T[P], undefined> | null
       : T[P] extends Date
         ? string
-        : T[P] extends Array<JsonValue>
-          ? JsonArray
-          : never;
+        : never;
 };
 
 export const json = <T extends Prop>(props: T): JsonEncodable<T> => {
@@ -32,8 +28,6 @@ const convertPropTypeToJson = <T extends PropType>(value: T): JsonValue => {
     return null;
   } else if (value instanceof Date) {
     return value.toISOString();
-  } else if (Array.isArray(value)) {
-    return value.map((v) => convertPropTypeToJson(v));
   } else {
     return value;
   }
