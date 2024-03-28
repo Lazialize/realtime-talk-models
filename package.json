@@ -22,7 +22,8 @@
     "lint:fix": "eslint --fix",
     "fmt": "eslint --fix && prettier --write ./src",
     "migration:generate": "bun run drizzle-kit generate:pg",
-    "migration:run": "bun run migrate.ts"
+    "migration:run": "bun run migrate.ts",
+    "build": "rimraf dist && bun build.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.30.4",
